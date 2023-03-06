@@ -41,7 +41,7 @@ done
 
 # combine qrcode images into gif
 echo "Creating gif..."
-ffmpeg -i frame_%d.png $output -y -r 2
+ffmpeg  -y -r 2 -i frame_%d.png $output
 
 # clean up
 echo "Cleaning up..."

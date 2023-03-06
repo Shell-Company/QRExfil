@@ -33,7 +33,7 @@ QRExfiltrate requires the following prerequisites:
 
 ## Limitations
 
-QRExfiltrate is limited by the size of the source data,  qrencoding per frame has been capped to 64 bytes to ensure the resulting image has a uniform size and shape. Additionally the conversion to QR code results in a lot of storage overhead, on average the resulting gif is 50x larger than the . Finally, QRExfiltrate is limited by the capabilities of the QR code reader. If the reader is not able to detect the QR codes from the GIF, the data will not be able to be reassembled. 
+QRExfiltrate is limited by the size of the source data,  qrencoding per frame has been capped to 64 bytes to ensure the resulting image has a uniform size and shape. Additionally the conversion to QR code results in a lot of storage overhead, on average the resulting gif is 50x larger than the original. Finally, QRExfiltrate is limited by the capabilities of the QR code reader. If the reader is not able to detect the QR codes from the GIF, the data will not be able to be reassembled. 
 
 > The decoder script has been intentionally omitted
 

@@ -17,7 +17,7 @@ if [ ! -f "$file" ]; then
 fi
 
 # get size of file in bytes
-filesize=$(stat -c%s "$file")
+filesize=$(stat -f "%z" "$file" || stat -c%s "$file")
 
 # calculate size of each chunk
 chunksize=64

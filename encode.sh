@@ -17,7 +17,12 @@ if [ ! -f "$file" ]; then
 fi
 
 # get size of file in bytes
-filesize=$(stat -f "%z" "$file" || stat -c%s "$file")
+# filesize=$(stat -f "%z" "$file" || stat -c%s "$file")
+if [ "$(uname)" == "Darwin" ]; then
+    filesize=$(stat -f "%z" "$file")
+else
+    filesize=$(stat -c%s "$file")
+fi
 
 # calculate size of each chunk
 chunksize=64
@@ -41,7 +46,11 @@ done
 
 # combine qrcode images into gif
 echo "Creating gif..."
-ffmpeg  -y -r 2 -i frame_%d.png $output
+if [ "$(uname)" == "Darwin" ]; then
+    ffmpeg -y -r 10 -i frame_%d.png $output
+else
+    ffmpeg  -i frame_%d.png $output  -y -r 10
+fi
 
 # clean up
 echo "Cleaning up..."

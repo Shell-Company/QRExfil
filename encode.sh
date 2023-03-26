@@ -1,5 +1,14 @@
 #!/bin/bash
+
+function check_package() {
+    REQUIRED_PKG="$1"
+    PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $REQUIRED_PKG 2> /dev/null | grep "install ok installed")
+    [ -n "$PKG_OK" ] && return $?
+}
+
 # requires qrencode and ffmpeg
+check_package "qrencode" || { echo "[!] qrencode package is missing. Please install it: sudo apt-get install qrencode"; exit 1; }
+check_package "ffmpeg" || { echo "[!] ffmpeg package is missing. Please install it: sudo apt-get install ffmpeg"; exit 1; }
 
 # get file from input
 file="$1"
@@ -7,12 +16,12 @@ output="$2"
 
 # check if 2nd argument is provided
 if [ -z "$output" ]; then
-    output = "output.gif"
+    output="output.gif"
 fi
 
 # check if the file exists
 if [ ! -f "$file" ]; then
-    echo "File not found"
+    echo "Input file not found"
     exit 1
 fi
 
@@ -47,9 +56,9 @@ done
 # combine qrcode images into gif
 echo "Creating gif..."
 if [ "$(uname)" == "Darwin" ]; then
-    ffmpeg -y -r 10 -i frame_%d.png $output
+    ffmpeg -y -r 10 -i frame_%d.png $output 
 else
-    ffmpeg  -i frame_%d.png $output  -y -r 10
+    ffmpeg  -i frame_%d.png $output  -y -r 10 
 fi
 
 # clean up

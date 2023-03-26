@@ -40,7 +40,7 @@ done
 # generate qrcode images
 echo "Generating qrcodes..."
 for i in $(seq 0 $nchunks); do
-    qrencode -t png -o frame_"$i".png < chunk_"$i" -s 8
+    qrencode -t png -o frame_"$i".png < chunk_"$i" -s 8 -8
     echo "Generated qrcode $i"
 done
 
